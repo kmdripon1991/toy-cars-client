@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import carAnimation from '../../../../public/carAnimation.json'
 import Lottie from "lottie-react";
+import { AuthContext } from "../../../providers/AuthProviders";
 
 const Login = () => {
+
+  const {loginUser} = useContext(AuthContext);
+
+  const handleLoginUser = event=>{
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password)
+    loginUser(email, password)
+    .then(result =>{
+      const loggedUser = result.user;
+      console.log(loggedUser.photoURL)
+    })
+    .catch(error=>console.error(error))
+  }
+
+
+
+
   return (
     <div className="flex bg-gray-400">
       <div className="w-full h-full lg:max-w-md m-auto bg-purple-100 rounded p-5 sm:my-5">
@@ -14,13 +35,13 @@ const Login = () => {
             Login Now
           </h2>
         </div>
-        <form>
+        <form onSubmit={handleLoginUser}>
           <div>
-            <label className="block mb-2 text-purple-500">Username</label>
+            <label className="block mb-2 text-purple-500">Email</label>
             <input
               className="w-full p-2 mb-6 text-purple-700 border-b-2 border-purple-500 outline-none focus:bg-gray-300"
               type="text"
-              name="username"
+              name="email"
             />
           </div>
           <div>
