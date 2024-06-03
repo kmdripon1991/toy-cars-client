@@ -5,11 +5,13 @@ import Login from "../pages/Home/Login/Login";
 import Register from "../pages/Home/Register/Register";
 import LoginLayout from "../layout/LoginLayout";
 import Blog from "../pages/Home/Blog/Blog";
+import Error from "../pages/Error/Error";
 
 const router = createBrowserRouter([
     {
         path:'/',
         element:<Main/>,
+        errorElement:<Error/>,
         children:[
             {
                 path:'/',
