@@ -91,7 +91,7 @@ const Navbar = () => {
             </li>
             {user && conditionalItems}
             <li>
-              <Link>Blog</Link>
+              <Link to='/blog'>Blog</Link>
             </li>
           </ul>
         </div>
@@ -113,7 +113,7 @@ const Navbar = () => {
           </li>
           {user && conditionalItems}
           <li>
-            <NavLink className="btn-navbar">Blog</NavLink>
+            <NavLink to='/blog' className="btn-navbar">Blog</NavLink>
           </li>
         </ul>
       </div>
