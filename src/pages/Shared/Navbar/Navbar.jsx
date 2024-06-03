@@ -13,7 +13,7 @@ const Navbar = () => {
         <Link>My Toys</Link>
       </li>
       <li>
-        <Link>Add Toys</Link>
+        <Link to='/add-toy'>Add Toys</Link>
       </li>
     </>
   );
