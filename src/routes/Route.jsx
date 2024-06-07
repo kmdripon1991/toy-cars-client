@@ -7,6 +7,10 @@ import LoginLayout from "../layout/LoginLayout";
 import Blog from "../pages/Home/Blog/Blog";
 import Error from "../pages/Error/Error";
 import AddAToy from "../pages/AddAToy/AddAToy";
+import PrivateRoute from "./PrivateRoute";
+import MyToys from "../pages/MyToys/MyToys";
+import AllToys from "../pages/AllToys/AllToys";
+import SingleToy from "../pages/SingleToy/SingleToy";
 
 const router = createBrowserRouter([
     {
@@ -26,11 +30,11 @@ const router = createBrowserRouter([
         element:<LoginLayout/>,
         children:[
             {
-                path:'/login',
+                path:'login',
                 element:<Login/>
             },
             {
-                path:'/register',
+                path:'register',
                 element:<Register/>
             },
             {
@@ -39,7 +43,21 @@ const router = createBrowserRouter([
             },
             {
                 path:'add-toy',
-                element:<AddAToy/>
+                element:<PrivateRoute><AddAToy/></PrivateRoute>
+            },
+            {
+                path:'my-toys',
+                element:<PrivateRoute><MyToys/></PrivateRoute>
+            },
+            {
+                path:'all-toy',
+                element:<AllToys/>,
+                loader:()=>fetch('https://glitter-tidy-gondola.glitch.me/cars')
+            },
+            {
+                path:'toy/:id',
+                element:<SingleToy/>,
+                loader:({params})=>fetch(`https://glitter-tidy-gondola.glitch.me/car/${params.id}`)
             }
         ]
     }

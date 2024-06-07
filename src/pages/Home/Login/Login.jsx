@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import carAnimation from '../../../../public/carAnimation.json'
 import Lottie from "lottie-react";
@@ -8,6 +8,9 @@ import { AuthContext } from "../../../providers/AuthProviders";
 const Login = () => {
 
   const {loginUser} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname;
 
   const handleLoginUser = event=>{
     event.preventDefault();
@@ -18,6 +21,7 @@ const Login = () => {
     loginUser(email, password)
     .then(result =>{
       const loggedUser = result.user;
+      navigate(from || '/')
       console.log(loggedUser.photoURL)
     })
     .catch(error=>console.error(error))

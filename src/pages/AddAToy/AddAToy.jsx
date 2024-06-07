@@ -1,11 +1,13 @@
 import React from "react";
+import Swal from "sweetalert2";
 
 const AddAToy = () => {
   const handleAddToy = (event) => {
     event.preventDefault();
     const form = event.target;
     const productName = form.productName.value;
-    const subCategory = form.category.value;
+    const category = form.category.value;
+    const subCategory = form.subCategory.value;
     const photo = form.photo.value;
     const sellerName = form.sellerName.value;
     const sellerEmail = form.sellerEmail.value;
@@ -24,6 +26,39 @@ const AddAToy = () => {
       rating,
       details
     );
+    const addToyInfo = {
+      image: photo,
+      toy_name: productName,
+      seller_name: sellerName,
+      seller_email: sellerEmail,
+      toy_sub_category: subCategory,
+      toy_category: category,
+      price: price,
+      rating: rating,
+      available_quantity: quantity,
+      detail_description: details,
+    };
+    // console.log(addToyInfo)
+
+    fetch("https://glitter-tidy-gondola.glitch.me/cars", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(addToyInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success!",
+            text: "Coffee added Successfully",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+        }
+      });
+      form.reset();
   };
 
   return (
@@ -47,11 +82,23 @@ const AddAToy = () => {
             </div>
             <div className="col-span-6 sm:col-span-3">
               <label className="text-sm font-medium text-gray-900 block mb-2">
-                Sub-category
+                Category
               </label>
               <input
                 type="text"
                 name="category"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                placeholder="Category"
+                required
+              />
+            </div>
+            <div className="col-span-6 sm:col-span-3">
+              <label className="text-sm font-medium text-gray-900 block mb-2">
+                Sub-category
+              </label>
+              <input
+                type="text"
+                name="subCategory"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                 placeholder="Sub-category"
                 required
